@@ -1,5 +1,8 @@
-﻿using System;
+﻿using GameOfThronesApp.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +25,23 @@ namespace GameOfThronesApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private ObservableCollection<Character> GOTCharacters { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
+
+            GOTCharacters = new ObservableCollection<Character>();
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            MyProgressRing.IsActive = true;
+            MyProgressRing.Visibility = Visibility.Visible;
+
+            await GOTFacade.AddCharactersToAppAsync(GOTCharacters);
+
+            MyProgressRing.IsActive = false;
+            MyProgressRing.Visibility = Visibility.Collapsed;
         }
     }
 }
