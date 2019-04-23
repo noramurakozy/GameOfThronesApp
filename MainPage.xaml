@@ -10,33 +10,146 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="30"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        <ListView Name="MasterListView" ItemsSource="{x:Bind GOTCharacters}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="data:Character">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind displayName}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                <ListView Name="MasterListView" 
+                  IsItemClickEnabled="True"
+                  ItemClick="MasterListView_ItemClick"
+                  ItemsSource="{x:Bind GOTCharacters}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:Character">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind displayName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-        <Grid Name="DetailGrid" Grid.Column="1" Grid.Row="0">
-            
-        </Grid>
+                <Grid Name="DetailGrid" Grid.Column="1" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="DetailNameTextBlock" 
+                           FontSize="32" 
+                           Grid.Column="0" 
+                           Margin="10,0,0,0" />
+                    <TextBlock Name="DetailGenderTextBlock" 
+                           Grid.Row="1" 
+                           Grid.Column="0" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                    <TextBlock Name="DetailCultureTextBlock" 
+                           Grid.Row="2" 
+                           Grid.Column="0" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                    <TextBlock Name="DetailBornTextBlock" 
+                           Grid.Row="3" 
+                           Grid.Column="0" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                    <TextBlock Name="DetailDiedTextBlock" 
+                           Grid.Row="4" 
+                           Grid.Column="0" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                    <TextBlock Name="DetailFatherTextBlock" 
+                           Grid.Row="5" 
+                           Grid.Column="0" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                    <TextBlock Name="DetailMotherTextBlock" 
+                           Grid.Row="6" 
+                           Grid.Column="0" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                    <TextBlock Name="DetailSpouseTextBlock" 
+                           Grid.Row="7" 
+                           Grid.Column="0" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
 
-        <TextBlock Text="Attribution" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="2"/>
+                    <GridView Grid.Row="8" 
+                      ItemsSource="{x:Bind GOTBooks}" 
+                      IsItemClickEnabled="True" 
+                      ItemClick="GridView_ItemClick">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="data:Book">
+                                <TextBlock Text="{x:Bind name}" Width="100" Height="150" TextWrapping="WrapWholeWords"/>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
 
-        <ProgressRing Name="MyProgressRing"
+                    <Grid Grid.Row="9" 
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Name="BookDetailNameTextBlock" 
+                           FontSize="32" 
+                           Margin="10,0,0,0" />
+                        <TextBlock Name="BookDetailISBNTextBlock" 
+                           Grid.Row="1" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                        <TextBlock Name="BookDetailNumberOfPagesTextBlock" 
+                           Grid.Row="2" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                        <TextBlock Name="BookDetailPublisherTextBlock" 
+                           Grid.Row="3" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                        <TextBlock Name="BookDetailCountryTextBlock" 
+                           Grid.Row="4" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                        <TextBlock Name="BookDetailMediaTypeTextBlock" 
+                           Grid.Row="5" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                        <TextBlock Name="BookDetailReleasedTextBlock" 
+                           Grid.Row="6" 
+                           TextWrapping="Wrap"
+                           Margin="10,0,0,0" />
+                    </Grid>
+
+                </Grid>
+
+                <TextBlock Text="Attribution" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="2"/>
+
+                <ProgressRing Name="MyProgressRing"
                       Width="100"
                       Height="100"
                       Foreground="Gray"
@@ -44,6 +157,7 @@
                       Grid.RowSpan="3"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"/>
+            </Grid>
+        </ScrollViewer>
     </Grid>
-    
 </Page>
