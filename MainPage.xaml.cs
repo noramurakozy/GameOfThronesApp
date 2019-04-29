@@ -40,15 +40,41 @@ namespace GameOfThronesApp
         {
             MyProgressRing.IsActive = true;
             MyProgressRing.Visibility = Visibility.Visible;
+            
 
             while (GOTCharacters.Count < 10)
             {
                 await GOTFacade.AddCharactersToAppAsync(GOTCharacters);
             }
-            
+
+            InitBookDetailGrid();
+            InitCharacterDetailGrid();
 
             MyProgressRing.IsActive = false;
             MyProgressRing.Visibility = Visibility.Collapsed;
+        }
+
+        private void InitBookDetailGrid()
+        {
+            int rowindex = 0;
+            foreach (var childItem in BookDetailGrid.Children)
+            {
+                childItem.SetValue(Grid.RowProperty, rowindex++);
+                childItem.SetValue(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
+                childItem.SetValue(MarginProperty, new Thickness(10, 0, 0, 0));
+            }
+        }
+
+        private void InitCharacterDetailGrid()
+        {
+            int rowindex = 0;
+            foreach (var childItem in CharacterDetailGrid.Children)
+            {
+                childItem.SetValue(Grid.RowProperty, rowindex++);
+                childItem.SetValue(Grid.ColumnProperty, 0);
+                childItem.SetValue(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
+                childItem.SetValue(MarginProperty, new Thickness(10, 0, 0, 0));
+            }
         }
 
         private async void MasterListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -68,6 +94,7 @@ namespace GameOfThronesApp
             DetailFatherTextBlock.Text = "Father: " + selectedCharacter.father;
             DetailMotherTextBlock.Text = "Mother: " + selectedCharacter.mother;
             DetailSpouseTextBlock.Text = "Spouse: " + selectedCharacter.spouse;
+            DetailTitlesListView.ItemsSource = selectedCharacter.titles;
 
             GOTBooks.Clear();
 
