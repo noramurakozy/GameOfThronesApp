@@ -28,12 +28,29 @@ namespace GameOfThronesApp
     {
         private ObservableCollection<Character> GOTCharacters { get; set; }
         public ObservableCollection<Book> GOTBooks { get; set; }
+
+        private List<string> CharacterLabelStrings { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
 
             GOTCharacters = new ObservableCollection<Character>();
             GOTBooks = new ObservableCollection<Book>();
+            CharacterLabelStrings = new List<string>()
+            {
+                "Gender",
+                "Culture",
+                "Born",
+                "Died",
+                "Father",
+                "Mother",
+                "Spouse",
+                "Titles",
+                "Aliases",
+                "Allegiances",
+                "Tv series",
+                "Played by"
+            };
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -71,9 +88,26 @@ namespace GameOfThronesApp
             foreach (var childItem in CharacterDetailGrid.Children)
             {
                 childItem.SetValue(Grid.RowProperty, rowindex++);
-                childItem.SetValue(Grid.ColumnProperty, 0);
+                childItem.SetValue(Grid.ColumnProperty, 1);
                 childItem.SetValue(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
                 childItem.SetValue(MarginProperty, new Thickness(10, 0, 0, 0));
+            }
+
+            //add labels
+            for (int i = 0; i < rowindex; i++)
+            {
+                if(i == 0)
+                {
+                    CharacterDetailGrid.Children[i].SetValue(Grid.ColumnProperty, 0);
+                    CharacterDetailGrid.Children[i].SetValue(Grid.ColumnSpanProperty, 2);
+                    continue;
+                }
+
+                TextBlock label = new TextBlock();
+                label.Text = CharacterLabelStrings[i-1];
+                label.SetValue(Grid.ColumnProperty, 0);
+                label.SetValue(Grid.RowProperty, i);
+                CharacterDetailGrid.Children.Add(label);
             }
         }
 
@@ -87,14 +121,14 @@ namespace GameOfThronesApp
             var selectedCharacter = (Character)e.ClickedItem;
 
             DetailNameTextBlock.Text = selectedCharacter.displayName;
-            DetailGenderTextBlock.Text = "Gender: " + selectedCharacter.gender;
-            DetailCultureTextBlock.Text = "Culture: " + selectedCharacter.culture;
-            DetailBornTextBlock.Text = "Born: " + selectedCharacter.born;
-            DetailDiedTextBlock.Text = "Died: " + selectedCharacter.died;
-            DetailFatherTextBlock.Text = "Father: " + selectedCharacter.father;
-            DetailMotherTextBlock.Text = "Mother: " + selectedCharacter.mother;
-            DetailSpouseTextBlock.Text = "Spouse: " + selectedCharacter.spouse;
-            DetailTitlesListView.ItemsSource = selectedCharacter.titles;
+            DetailGenderTextBlock.Text = selectedCharacter.gender;
+            DetailCultureTextBlock.Text = selectedCharacter.culture;
+            DetailBornTextBlock.Text = selectedCharacter.born;
+            DetailDiedTextBlock.Text = selectedCharacter.died;
+            DetailFatherTextBlock.Text = selectedCharacter.father;
+            DetailMotherTextBlock.Text = selectedCharacter.mother;
+            DetailSpouseTextBlock.Text = selectedCharacter.spouse;
+            DetailTitlesTextBlock.Text = String.Join(",", selectedCharacter.titles);
 
             GOTBooks.Clear();
 
