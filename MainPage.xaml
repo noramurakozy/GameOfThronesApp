@@ -42,11 +42,18 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
+                    <Border Background="Violet">
+                        <TextBlock Text="Character" FontSize="20" HorizontalAlignment="Center"/>
+                    </Border>
 
                     <!--Character Detail Grid-->
                     <Grid Name="CharacterDetailGrid" 
-                          Grid.Row="0" 
+                          Grid.Row="1" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Top">
                         <Grid.RowDefinitions>
@@ -87,9 +94,13 @@
                         <TextBlock Name="DetailPlayedByTextBlock"/>
                     </Grid>
 
+                    <Border Grid.Row="2" Background="Violet">
+                        <TextBlock Text="Books" FontSize="20" HorizontalAlignment="Center"/>
+                    </Border>
+
                     <!-- List of Books -->
                     <GridView 
-                          Grid.Row="1" 
+                          Grid.Row="3" 
                           ItemsSource="{x:Bind GOTBooks}" 
                           IsItemClickEnabled="True" 
                           ItemClick="GridView_ItemClick">
@@ -102,9 +113,13 @@
                         </GridView.ItemTemplate>
                     </GridView>
 
+                    <Border Grid.Row="4" Background="Violet">
+                        <TextBlock Text="POV Books" FontSize="20" HorizontalAlignment="Center"/>
+                    </Border>
+
                     <!-- List of POV Books -->
                     <GridView 
-                          Grid.Row="2" 
+                          Grid.Row="5" 
                           ItemsSource="{x:Bind GOTPovBooks}" 
                           IsItemClickEnabled="True" 
                           ItemClick="GridView_ItemClick">
@@ -119,10 +134,13 @@
 
                     <!--Book Details-->
                     <Grid Name="BookDetailGrid"
-                      Grid.Row="3" 
+                      Grid.Row="6" 
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -139,6 +157,9 @@
                         <TextBlock Name="BookDetailCountryTextBlock"/>
                         <TextBlock Name="BookDetailMediaTypeTextBlock"/>
                         <TextBlock Name="BookDetailReleasedTextBlock"/>
+                        <TextBlock Name="BookDetailAuthorsTextBlock"/>
+                        <TextBlock Name="BookDetailCharactersTextBlock"/>
+                        <TextBlock Name="BookDetailPovCharactersTextBlock"/>
                     </Grid>
 
                     <ProgressRing Name="MyProgressRing"

@@ -161,6 +161,9 @@ namespace GameOfThronesApp
             BookDetailCountryTextBlock.Text = "Country: " + selectedBook.country;
             BookDetailMediaTypeTextBlock.Text = "MediaType: " + selectedBook.mediaType;
             BookDetailReleasedTextBlock.Text = "Released: " + selectedBook.released;
+            BookDetailAuthorsTextBlock.Text = String.Join(", ", selectedBook.authors);
+            BookDetailCharactersTextBlock.Text = String.Join(", ", selectedBook.characters);
+            BookDetailPovCharactersTextBlock.Text = String.Join(", ", selectedBook.povCharacters);
 
         }
 
