@@ -28,6 +28,7 @@ namespace GameOfThronesApp
     {
         private ObservableCollection<Character> GOTCharacters { get; set; }
         public ObservableCollection<Book> GOTBooks { get; set; }
+        public ObservableCollection<Book> GOTPovBooks { get; set; }
 
         private List<string> CharacterLabelStrings { get; set; }
         public MainPage()
@@ -36,8 +37,11 @@ namespace GameOfThronesApp
 
             GOTCharacters = new ObservableCollection<Character>();
             GOTBooks = new ObservableCollection<Book>();
+            GOTPovBooks = new ObservableCollection<Book>();
+
             CharacterLabelStrings = new List<string>()
             {
+                "",
                 "Gender",
                 "Culture",
                 "Born",
@@ -104,7 +108,7 @@ namespace GameOfThronesApp
                 }
 
                 TextBlock label = new TextBlock();
-                label.Text = CharacterLabelStrings[i-1];
+                label.Text = CharacterLabelStrings[i];
                 label.SetValue(Grid.ColumnProperty, 0);
                 label.SetValue(Grid.RowProperty, i);
                 CharacterDetailGrid.Children.Add(label);
@@ -128,11 +132,19 @@ namespace GameOfThronesApp
             DetailFatherTextBlock.Text = selectedCharacter.father;
             DetailMotherTextBlock.Text = selectedCharacter.mother;
             DetailSpouseTextBlock.Text = selectedCharacter.spouse;
-            DetailTitlesTextBlock.Text = String.Join(",", selectedCharacter.titles);
+            DetailTitlesTextBlock.Text = String.Join(", ", selectedCharacter.titles);
+            DetailAliasesTextBlock.Text = String.Join(", ", selectedCharacter.aliases);
+            DetailAllegiancesTextBlock.Text = String.Join(", ", selectedCharacter.allegiances);
+            DetailTvSeriesTextBlock.Text = String.Join(", ", selectedCharacter.tvSeries);
+            DetailPlayedByTextBlock.Text = String.Join(", ", selectedCharacter.playedBy);
 
             GOTBooks.Clear();
-
+            GOTPovBooks.Clear();
             await GOTFacade.GetBookListAsync(selectedCharacter.books, GOTBooks);
+            await GOTFacade.GetBookListAsync(selectedCharacter.povBooks, GOTPovBooks);
+
+            Debug.WriteLine(GOTPovBooks.ToString());
+
 
             MyProgressRing.IsActive = false;
             MyProgressRing.Visibility = Visibility.Collapsed;

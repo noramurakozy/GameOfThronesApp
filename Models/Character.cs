@@ -62,13 +62,13 @@ namespace GameOfThronesApp.Models
         public string spouse { get; set; }
 
         [DataMember]
-        public List<object> allegiances { get; set; }
+        public List<string> allegiances { get; set; }
 
         [DataMember]
         public List<string> books { get; set; }
 
         [DataMember]
-        public List<object> povBooks { get; set; }
+        public List<string> povBooks { get; set; }
 
         [DataMember]
         public List<string> tvSeries { get; set; }

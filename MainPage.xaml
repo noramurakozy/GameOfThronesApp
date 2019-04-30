@@ -41,6 +41,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!--Character Detail Grid-->
@@ -59,9 +60,15 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         
@@ -74,6 +81,10 @@
                         <TextBlock Name="DetailMotherTextBlock"/>
                         <TextBlock Name="DetailSpouseTextBlock"/>
                         <TextBlock Name="DetailTitlesTextBlock"/>
+                        <TextBlock Name="DetailAliasesTextBlock"/>
+                        <TextBlock Name="DetailAllegiancesTextBlock"/>
+                        <TextBlock Name="DetailTvSeriesTextBlock"/>
+                        <TextBlock Name="DetailPlayedByTextBlock"/>
                     </Grid>
 
                     <!-- List of Books -->
@@ -84,14 +95,31 @@
                           ItemClick="GridView_ItemClick">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="data:Book">
-                                <TextBlock Text="{x:Bind name}" Width="100" Height="150" TextWrapping="WrapWholeWords"/>
+                                <Border Background="Azure">
+                                    <TextBlock Text="{x:Bind name}" Width="66" Height="100" TextWrapping="WrapWholeWords"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+
+                    <!-- List of POV Books -->
+                    <GridView 
+                          Grid.Row="2" 
+                          ItemsSource="{x:Bind GOTPovBooks}" 
+                          IsItemClickEnabled="True" 
+                          ItemClick="GridView_ItemClick">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="data:Book">
+                                <Border Background="LightPink">
+                                    <TextBlock Text="{x:Bind name}" Width="66" Height="100" TextWrapping="WrapWholeWords"/>
+                                </Border>
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
 
                     <!--Book Details-->
                     <Grid Name="BookDetailGrid"
-                      Grid.Row="2" 
+                      Grid.Row="3" 
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top">
                         <Grid.RowDefinitions>
