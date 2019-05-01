@@ -46,6 +46,10 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="500"/>
+                    </Grid.ColumnDefinitions>
 
                     <Border Background="Violet">
                         <TextBlock Text="Character" FontSize="20" HorizontalAlignment="Center"/>
@@ -75,8 +79,8 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         
                         <TextBlock Name="DetailNameTextBlock" FontSize="32"/>
@@ -89,7 +93,16 @@
                         <TextBlock Name="DetailSpouseTextBlock"/>
                         <TextBlock Name="DetailTitlesTextBlock"/>
                         <TextBlock Name="DetailAliasesTextBlock"/>
-                        <TextBlock Name="DetailAllegiancesTextBlock"/>
+                        <ListView
+                            ItemsSource="{x:Bind GOTHouses}" 
+                            IsItemClickEnabled="True" 
+                            ItemClick="ListView_ItemClick">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="data:House">
+                                    <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                         <TextBlock Name="DetailTvSeriesTextBlock"/>
                         <TextBlock Name="DetailPlayedByTextBlock"/>
                     </Grid>
@@ -134,9 +147,9 @@
 
                     <!--Book Details-->
                     <Grid Name="BookDetailGrid"
-                      Grid.Row="6" 
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Top">
+                          Grid.Row="6" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -149,17 +162,71 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
                         <TextBlock Name="BookDetailNameTextBlock" FontSize="32"/>
                         <TextBlock Name="BookDetailISBNTextBlock"/>
+                        <TextBlock Name="BookDetailAuthorsTextBlock"/>
                         <TextBlock Name="BookDetailNumberOfPagesTextBlock"/>
                         <TextBlock Name="BookDetailPublisherTextBlock"/>
                         <TextBlock Name="BookDetailCountryTextBlock"/>
                         <TextBlock Name="BookDetailMediaTypeTextBlock"/>
                         <TextBlock Name="BookDetailReleasedTextBlock"/>
-                        <TextBlock Name="BookDetailAuthorsTextBlock"/>
                         <TextBlock Name="BookDetailCharactersTextBlock"/>
                         <TextBlock Name="BookDetailPovCharactersTextBlock"/>
+                    </Grid>
+
+                    <Border Grid.Column="1" Background="Violet">
+                        <TextBlock Text="House" FontSize="20" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <!--House Detail Grid-->
+                    <Grid Name="HouseDetailGrid"
+                          Grid.Column="1"
+                          Grid.Row="1"
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Name="HouseDetailNameTextBlock" FontSize="32"/>
+                        <TextBlock Name="HouseDetailRegionTextBlock"/>
+                        <TextBlock Name="HouseDetailCoatOfArmsTextBlock"/>
+                        <TextBlock Name="HouseDetailWordsTextBlock"/>
+                        <TextBlock Name="HouseDetailTitlesTextBlock"/>
+                        <TextBlock Name="HouseDetailSeatsTextBlock"/>
+                        <TextBlock Name="HouseDetailCurrentLordTextBlock"/>
+                        <TextBlock Name="HouseDetailHeirTextBlock"/>
+                        <TextBlock Name="HouseDetailOverlordTextBlock"/>
+                        <TextBlock Name="HouseDetailFoundedTextBlock"/>
+                        <TextBlock Name="HouseDetailFounderTextBlock"/>
+                        <TextBlock Name="HouseDetailDiedOutTextBlock"/>
+                        <TextBlock Name="HouseDetailWeaponsTextBlock"/>
+                        <TextBlock Name="HouseDetailCadetBranchesTextBlock"/>
+                        <TextBlock Name="HouseDetailSwornMembersTextBlock"/>
+
                     </Grid>
 
                     <ProgressRing Name="MyProgressRing"

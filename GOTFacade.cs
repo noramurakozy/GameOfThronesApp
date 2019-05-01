@@ -52,13 +52,13 @@ namespace GameOfThronesApp
             return characterList;
         }
 
-        public async static Task<List<Book>> GetBookListAsync(List<string> bookUrls, ObservableCollection<Book> finalBookList)
+        public async static Task<List<T>> GetDataListAsync<T>(List<string> urls, ObservableCollection<T> finalList)
         {
-            List<Book> bookList = new List<Book>();
+            List<T> list = new List<T>();
 
             var http = new HttpClient();
             List<Task<HttpResponseMessage>> requestList = new List<Task<HttpResponseMessage>>();
-            foreach (var url in bookUrls)
+            foreach (var url in urls)
             {
                 requestList.Add(http.GetAsync(url));
             }
@@ -71,12 +71,12 @@ namespace GameOfThronesApp
                 {
                     var jsonMessage = await response.Content.ReadAsStringAsync();
 
-                    var serializer = new DataContractJsonSerializer(typeof(Book));
+                    var serializer = new DataContractJsonSerializer(typeof(T));
                     var ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonMessage));
 
-                    var book = serializer.ReadObject(ms);
-                    bookList.Add(book as Book);
-                    finalBookList.Add(book as Book);
+                    var item = serializer.ReadObject(ms);
+                    list.Add((T)item);
+                    finalList.Add((T)item);
                     //Debug.WriteLine(((Book)book).isbn);
                 }
 
@@ -86,7 +86,7 @@ namespace GameOfThronesApp
                 Debug.WriteLine(e);
             }
 
-            return bookList;
+            return list;
         }
 
         public async static Task AddCharactersToAppAsync(ObservableCollection<Character> characters)
