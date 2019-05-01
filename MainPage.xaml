@@ -39,194 +39,210 @@
                 <Grid Name="DetailGrid" Grid.Column="1" Grid.Row="0" Margin="10,0,10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="500"/>
-                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition MinWidth="500"/>
+                        <ColumnDefinition MinWidth="500"/>
                     </Grid.ColumnDefinitions>
 
-                    <Border Background="Violet">
-                        <TextBlock Text="Character" FontSize="20" HorizontalAlignment="Center"/>
-                    </Border>
-
-                    <!--Character Detail Grid-->
-                    <Grid Name="CharacterDetailGrid" 
-                          Grid.Row="1" 
+                    <!--First column grid-->
+                    <Grid Name="FirstColumnGrid"
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Top">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Name="DetailNameTextBlock" FontSize="32"/>
-                        <TextBlock Name="DetailGenderTextBlock"/>
-                        <TextBlock Name="DetailCultureTextBlock"/>
-                        <TextBlock Name="DetailBornTextBlock"/>
-                        <TextBlock Name="DetailDiedTextBlock"/>
-                        <TextBlock Name="DetailFatherTextBlock"/>
-                        <TextBlock Name="DetailMotherTextBlock"/>
-                        <TextBlock Name="DetailSpouseTextBlock"/>
-                        <TextBlock Name="DetailTitlesTextBlock"/>
-                        <TextBlock Name="DetailAliasesTextBlock"/>
-                        <ListView
+
+                        <Border Background="Violet">
+                            <TextBlock Text="Character" FontSize="20" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <!--Character Detail Grid-->
+                        <Grid Name="CharacterDetailGrid" 
+                          Grid.Row="1" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Name="DetailNameTextBlock" FontSize="32"/>
+                            <TextBlock Name="DetailGenderTextBlock"/>
+                            <TextBlock Name="DetailCultureTextBlock"/>
+                            <TextBlock Name="DetailBornTextBlock"/>
+                            <TextBlock Name="DetailDiedTextBlock"/>
+                            <TextBlock Name="DetailFatherTextBlock"/>
+                            <TextBlock Name="DetailMotherTextBlock"/>
+                            <TextBlock Name="DetailSpouseTextBlock"/>
+                            <TextBlock Name="DetailTitlesTextBlock"/>
+                            <TextBlock Name="DetailAliasesTextBlock"/>
+                            <ListView
                             ItemsSource="{x:Bind GOTHouses}" 
                             IsItemClickEnabled="True" 
                             ItemClick="ListView_ItemClick">
-                            <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="data:House">
-                                    <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        <TextBlock Name="DetailTvSeriesTextBlock"/>
-                        <TextBlock Name="DetailPlayedByTextBlock"/>
-                    </Grid>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="data:House">
+                                        <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <TextBlock Name="DetailTvSeriesTextBlock"/>
+                            <TextBlock Name="DetailPlayedByTextBlock"/>
+                        </Grid>
 
-                    <Border Grid.Row="2" Background="Violet">
-                        <TextBlock Text="Books" FontSize="20" HorizontalAlignment="Center"/>
-                    </Border>
+                        <Border Grid.Row="2" Background="Violet">
+                            <TextBlock Text="Books" FontSize="20" HorizontalAlignment="Center"/>
+                        </Border>
 
-                    <!-- List of Books -->
-                    <GridView 
+                        <!-- List of Books -->
+                        <GridView 
                           Grid.Row="3" 
                           ItemsSource="{x:Bind GOTBooks}" 
                           IsItemClickEnabled="True" 
                           ItemClick="GridView_ItemClick">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="data:Book">
-                                <Border Background="Azure">
-                                    <TextBlock Text="{x:Bind name}" Width="66" Height="100" TextWrapping="WrapWholeWords"/>
-                                </Border>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="data:Book">
+                                    <Border Background="Azure">
+                                        <TextBlock Text="{x:Bind name}" Width="66" Height="100" TextWrapping="WrapWholeWords"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
 
-                    <Border Grid.Row="4" Background="Violet">
-                        <TextBlock Text="POV Books" FontSize="20" HorizontalAlignment="Center"/>
-                    </Border>
+                        <Border Grid.Row="4" Background="Violet">
+                            <TextBlock Text="POV Books" FontSize="20" HorizontalAlignment="Center"/>
+                        </Border>
 
-                    <!-- List of POV Books -->
-                    <GridView 
+                        <!-- List of POV Books -->
+                        <GridView 
                           Grid.Row="5" 
                           ItemsSource="{x:Bind GOTPovBooks}" 
                           IsItemClickEnabled="True" 
                           ItemClick="GridView_ItemClick">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="data:Book">
-                                <Border Background="LightPink">
-                                    <TextBlock Text="{x:Bind name}" Width="66" Height="100" TextWrapping="WrapWholeWords"/>
-                                </Border>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="data:Book">
+                                    <Border Background="LightPink">
+                                        <TextBlock Text="{x:Bind name}" Width="66" Height="100" TextWrapping="WrapWholeWords"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
 
-                    <!--Book Details-->
-                    <Grid Name="BookDetailGrid"
+                        <!--Book Details-->
+                        <Grid Name="BookDetailGrid"
                           Grid.Row="6" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Top">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Name="BookDetailNameTextBlock" FontSize="32"/>
-                        <TextBlock Name="BookDetailISBNTextBlock"/>
-                        <TextBlock Name="BookDetailAuthorsTextBlock"/>
-                        <TextBlock Name="BookDetailNumberOfPagesTextBlock"/>
-                        <TextBlock Name="BookDetailPublisherTextBlock"/>
-                        <TextBlock Name="BookDetailCountryTextBlock"/>
-                        <TextBlock Name="BookDetailMediaTypeTextBlock"/>
-                        <TextBlock Name="BookDetailReleasedTextBlock"/>
-                        <TextBlock Name="BookDetailCharactersTextBlock"/>
-                        <TextBlock Name="BookDetailPovCharactersTextBlock"/>
+                            <TextBlock Name="BookDetailNameTextBlock" FontSize="32"/>
+                            <TextBlock Name="BookDetailISBNTextBlock"/>
+                            <TextBlock Name="BookDetailAuthorsTextBlock"/>
+                            <TextBlock Name="BookDetailNumberOfPagesTextBlock"/>
+                            <TextBlock Name="BookDetailPublisherTextBlock"/>
+                            <TextBlock Name="BookDetailCountryTextBlock"/>
+                            <TextBlock Name="BookDetailMediaTypeTextBlock"/>
+                            <TextBlock Name="BookDetailReleasedTextBlock"/>
+                            <TextBlock Name="BookDetailCharactersTextBlock"/>
+                            <TextBlock Name="BookDetailPovCharactersTextBlock"/>
+                        </Grid>
+
                     </Grid>
+                    
+                    <!--Second column grid-->
+                    <Grid Name="SecondColumnGrid"
+                          Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Column="1" Background="Violet">
+                            <TextBlock Text="House" FontSize="20" HorizontalAlignment="Center"/>
+                        </Border>
 
-                    <Border Grid.Column="1" Background="Violet">
-                        <TextBlock Text="House" FontSize="20" HorizontalAlignment="Center"/>
-                    </Border>
-
-                    <!--House Detail Grid-->
-                    <Grid Name="HouseDetailGrid"
+                        <!--House Detail Grid-->
+                        <Grid Name="HouseDetailGrid"
                           Grid.Column="1"
                           Grid.Row="1"
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Top">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Name="HouseDetailNameTextBlock" FontSize="32"/>
-                        <TextBlock Name="HouseDetailRegionTextBlock"/>
-                        <TextBlock Name="HouseDetailCoatOfArmsTextBlock"/>
-                        <TextBlock Name="HouseDetailWordsTextBlock"/>
-                        <TextBlock Name="HouseDetailTitlesTextBlock"/>
-                        <TextBlock Name="HouseDetailSeatsTextBlock"/>
-                        <TextBlock Name="HouseDetailCurrentLordTextBlock"/>
-                        <TextBlock Name="HouseDetailHeirTextBlock"/>
-                        <TextBlock Name="HouseDetailOverlordTextBlock"/>
-                        <TextBlock Name="HouseDetailFoundedTextBlock"/>
-                        <TextBlock Name="HouseDetailFounderTextBlock"/>
-                        <TextBlock Name="HouseDetailDiedOutTextBlock"/>
-                        <TextBlock Name="HouseDetailWeaponsTextBlock"/>
-                        <TextBlock Name="HouseDetailCadetBranchesTextBlock"/>
-                        <TextBlock Name="HouseDetailSwornMembersTextBlock"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
+                            <TextBlock Name="HouseDetailNameTextBlock" FontSize="32"/>
+                            <TextBlock Name="HouseDetailRegionTextBlock"/>
+                            <TextBlock Name="HouseDetailCoatOfArmsTextBlock"/>
+                            <TextBlock Name="HouseDetailWordsTextBlock"/>
+                            <TextBlock Name="HouseDetailTitlesTextBlock"/>
+                            <TextBlock Name="HouseDetailSeatsTextBlock"/>
+                            <TextBlock Name="HouseDetailCurrentLordTextBlock"/>
+                            <TextBlock Name="HouseDetailHeirTextBlock"/>
+                            <TextBlock Name="HouseDetailOverlordTextBlock"/>
+                            <TextBlock Name="HouseDetailFoundedTextBlock"/>
+                            <TextBlock Name="HouseDetailFounderTextBlock"/>
+                            <TextBlock Name="HouseDetailDiedOutTextBlock"/>
+                            <TextBlock Name="HouseDetailWeaponsTextBlock"/>
+                            <TextBlock Name="HouseDetailCadetBranchesTextBlock"/>
+                            <TextBlock Name="HouseDetailSwornMembersTextBlock"/>
+                        </Grid>
                     </Grid>
 
                     <ProgressRing Name="MyProgressRing"
