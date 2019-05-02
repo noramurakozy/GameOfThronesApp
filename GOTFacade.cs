@@ -89,6 +89,26 @@ namespace GameOfThronesApp
             return list;
         }
 
+        public async static Task<T> GetSingleDataAsync<T>(string url)
+        {
+            if (!url.Equals(""))
+            {
+                var http = new HttpClient();
+
+                var jsonMessage = await http.GetAsync(url).Result.Content.ReadAsStringAsync();
+
+                var serializer = new DataContractJsonSerializer(typeof(T));
+                var ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonMessage));
+
+                return (T)serializer.ReadObject(ms);
+            }
+            else
+            {
+                return default(T);
+            }
+            
+        }
+
         public async static Task AddCharactersToAppAsync(ObservableCollection<Character> characters)
         {
             var characterList = await GetCharacterListAsync(10);

@@ -198,41 +198,12 @@ namespace GameOfThronesApp
             }
         }
 
-        private async void MasterListView_ItemClick(object sender, ItemClickEventArgs e)
+        private void Character_ItemClick(object sender, ItemClickEventArgs e)
         {
-            MyProgressRing.IsActive = true;
-            MyProgressRing.Visibility = Visibility.Visible;
-
-            ClearBookDetailsPanel();
-            ClearHousesDetailsPanel();
-
-            var selectedCharacter = (Character)e.ClickedItem;
-
-            DetailNameTextBlock.Text = selectedCharacter.displayName;
-            DetailGenderTextBlock.Text = selectedCharacter.gender;
-            DetailCultureTextBlock.Text = selectedCharacter.culture;
-            DetailBornTextBlock.Text = selectedCharacter.born;
-            DetailDiedTextBlock.Text = selectedCharacter.died;
-            DetailFatherTextBlock.Text = selectedCharacter.father;
-            DetailMotherTextBlock.Text = selectedCharacter.mother;
-            DetailSpouseTextBlock.Text = selectedCharacter.spouse;
-            DetailTitlesTextBlock.Text = String.Join(", ", selectedCharacter.titles);
-            DetailAliasesTextBlock.Text = String.Join(", ", selectedCharacter.aliases);
-            DetailTvSeriesTextBlock.Text = String.Join(", ", selectedCharacter.tvSeries);
-            DetailPlayedByTextBlock.Text = String.Join(", ", selectedCharacter.playedBy);
-
-            GOTBooks.Clear();
-            GOTPovBooks.Clear();
-            GOTHouses.Clear();
-            await GOTFacade.GetDataListAsync(selectedCharacter.books, GOTBooks);
-            await GOTFacade.GetDataListAsync(selectedCharacter.povBooks, GOTPovBooks);
-            await GOTFacade.GetDataListAsync(selectedCharacter.allegiances, GOTHouses);
-
-            MyProgressRing.IsActive = false;
-            MyProgressRing.Visibility = Visibility.Collapsed;
+            CharacterClicked((Character)e.ClickedItem);
         }
 
-        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        private void Book_ItemClick(object sender, ItemClickEventArgs e)
         {
             var selectedBook = (Book)e.ClickedItem;
 
@@ -246,7 +217,6 @@ namespace GameOfThronesApp
             BookDetailReleasedTextBlock.Text = selectedBook.released;
             BookDetailCharactersTextBlock.Text = String.Join(", ", selectedBook.characters);
             BookDetailPovCharactersTextBlock.Text = String.Join(", ", selectedBook.povCharacters);
-
         }
 
         private void ClearBookDetailsPanel()
@@ -263,7 +233,7 @@ namespace GameOfThronesApp
             BookDetailPovCharactersTextBlock.Text = "";
         }
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        private void House_ItemClick(object sender, ItemClickEventArgs e)
         {
             var selectedHouse = (House)e.ClickedItem;
            
@@ -301,6 +271,46 @@ namespace GameOfThronesApp
             HouseDetailWeaponsTextBlock.Text = "";
             HouseDetailCadetBranchesTextBlock.Text = "";
             HouseDetailSwornMembersTextBlock.Text = "";
+        }
+
+        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            CharacterClicked((Character)e.OriginalSource);
+        }
+
+        private async void CharacterClicked(Character selectedCharacter)
+        {
+            MyProgressRing.IsActive = true;
+            MyProgressRing.Visibility = Visibility.Visible;
+
+            ClearBookDetailsPanel();
+            ClearHousesDetailsPanel();
+
+            DetailNameTextBlock.Text = selectedCharacter.displayName;
+            DetailGenderTextBlock.Text = selectedCharacter.gender;
+            DetailCultureTextBlock.Text = selectedCharacter.culture;
+            DetailBornTextBlock.Text = selectedCharacter.born;
+            DetailDiedTextBlock.Text = selectedCharacter.died;
+            Character father = await GOTFacade.GetSingleDataAsync<Character>(selectedCharacter.father);
+            DetailFatherTextBlock.Text = father == null ? "" : father.name;
+            Character mother = await GOTFacade.GetSingleDataAsync<Character>(selectedCharacter.mother);
+            DetailMotherTextBlock.Text = mother == null ? "" : mother.name;
+            Character spouse = await GOTFacade.GetSingleDataAsync<Character>(selectedCharacter.spouse);
+            DetailSpouseTextBlock.Text = spouse == null ? "" : spouse.name;
+            DetailTitlesTextBlock.Text = String.Join(", ", selectedCharacter.titles);
+            DetailAliasesTextBlock.Text = String.Join(", ", selectedCharacter.aliases);
+            DetailTvSeriesTextBlock.Text = String.Join(", ", selectedCharacter.tvSeries);
+            DetailPlayedByTextBlock.Text = String.Join(", ", selectedCharacter.playedBy);
+
+            GOTBooks.Clear();
+            GOTPovBooks.Clear();
+            GOTHouses.Clear();
+            await GOTFacade.GetDataListAsync(selectedCharacter.books, GOTBooks);
+            await GOTFacade.GetDataListAsync(selectedCharacter.povBooks, GOTPovBooks);
+            await GOTFacade.GetDataListAsync(selectedCharacter.allegiances, GOTHouses);
+
+            MyProgressRing.IsActive = false;
+            MyProgressRing.Visibility = Visibility.Collapsed;
         }
     }
 }

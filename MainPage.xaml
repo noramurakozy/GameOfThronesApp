@@ -24,7 +24,7 @@
 
                 <ListView Name="MasterListView" 
                   IsItemClickEnabled="True"
-                  ItemClick="MasterListView_ItemClick"
+                  ItemClick="Character_ItemClick"
                   ItemsSource="{x:Bind GOTCharacters}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="data:Character">
@@ -95,15 +95,15 @@
                             <TextBlock Name="DetailCultureTextBlock"/>
                             <TextBlock Name="DetailBornTextBlock"/>
                             <TextBlock Name="DetailDiedTextBlock"/>
-                            <TextBlock Name="DetailFatherTextBlock"/>
-                            <TextBlock Name="DetailMotherTextBlock"/>
-                            <TextBlock Name="DetailSpouseTextBlock"/>
+                            <TextBlock Name="DetailFatherTextBlock" IsTapEnabled="True" Tapped="TextBlock_Tapped"/>
+                            <TextBlock Name="DetailMotherTextBlock" IsTapEnabled="True" Tapped="TextBlock_Tapped"/>
+                            <TextBlock Name="DetailSpouseTextBlock" IsTapEnabled="True" Tapped="TextBlock_Tapped"/>
                             <TextBlock Name="DetailTitlesTextBlock"/>
                             <TextBlock Name="DetailAliasesTextBlock"/>
                             <ListView
                             ItemsSource="{x:Bind GOTHouses}" 
                             IsItemClickEnabled="True" 
-                            ItemClick="ListView_ItemClick">
+                            ItemClick="House_ItemClick">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="data:House">
                                         <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
@@ -123,7 +123,7 @@
                           Grid.Row="3" 
                           ItemsSource="{x:Bind GOTBooks}" 
                           IsItemClickEnabled="True" 
-                          ItemClick="GridView_ItemClick">
+                          ItemClick="Book_ItemClick">
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="data:Book">
                                     <Border Background="Azure">
@@ -142,7 +142,7 @@
                           Grid.Row="5" 
                           ItemsSource="{x:Bind GOTPovBooks}" 
                           IsItemClickEnabled="True" 
-                          ItemClick="GridView_ItemClick">
+                          ItemClick="Book_ItemClick">
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="data:Book">
                                     <Border Background="LightPink">
