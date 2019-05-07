@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace GameOfThronesApp.Models
 {
     [DataContract]
-    class Character
+    public class Character
     {
         [DataMember]
         public string url { get; set; }
@@ -23,7 +23,7 @@ namespace GameOfThronesApp.Models
                 if (name.Equals("") && aliases.Count != 0)
                 {
                     
-                    return "Alias " + aliases[0];
+                    return aliases[0];
                     
                 }
                 else

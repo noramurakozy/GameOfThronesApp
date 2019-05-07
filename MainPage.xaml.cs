@@ -30,6 +30,10 @@ namespace GameOfThronesApp
         private ObservableCollection<Character> GOTCharacters { get; set; }
         public ObservableCollection<Book> GOTBooks { get; set; }
         public ObservableCollection<Book> GOTPovBooks { get; set; }
+        public ObservableCollection<Character> GOTBookCharacters { get; set; }
+        public ObservableCollection<Character> GOTBookPOVCharacters { get; set; }
+        public ObservableCollection<Character> GOTHouseSwornMembers { get; set; }
+        public ObservableCollection<House> GOTHouseCadetBranches { get; set; }
 
         private List<string> CharacterLabels { get; set; }
         private List<string> BookLabels { get; set; }
@@ -42,6 +46,10 @@ namespace GameOfThronesApp
             GOTBooks = new ObservableCollection<Book>();
             GOTPovBooks = new ObservableCollection<Book>();
             GOTHouses = new ObservableCollection<House>();
+            GOTBookCharacters = new ObservableCollection<Character>();
+            GOTBookPOVCharacters = new ObservableCollection<Character>();
+            GOTHouseSwornMembers = new ObservableCollection<Character>();
+            GOTHouseCadetBranches = new ObservableCollection<House>();
 
             CharacterLabels = new List<string>()
             {
@@ -96,7 +104,6 @@ namespace GameOfThronesApp
         {
             MyProgressRing.IsActive = true;
             MyProgressRing.Visibility = Visibility.Visible;
-            
 
             while (GOTCharacters.Count < 10)
             {
@@ -183,7 +190,7 @@ namespace GameOfThronesApp
             //add labels
             for (int i = 0; i < rowindex; i++)
             {
-                if(i == 0)
+                if (i == 0)
                 {
                     CharacterDetailGrid.Children[i].SetValue(Grid.ColumnProperty, 0);
                     CharacterDetailGrid.Children[i].SetValue(Grid.ColumnSpanProperty, 2);
@@ -198,93 +205,12 @@ namespace GameOfThronesApp
             }
         }
 
-        private void Character_ItemClick(object sender, ItemClickEventArgs e)
+        private async void Character_ItemClick(object sender, ItemClickEventArgs e)
         {
-            CharacterClicked((Character)e.ClickedItem);
-        }
+            var selectedCharacter = (Character)e.ClickedItem;
 
-        private void Book_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var selectedBook = (Book)e.ClickedItem;
-
-            BookDetailNameTextBlock.Text = selectedBook.name;
-            BookDetailISBNTextBlock.Text = selectedBook.isbn;
-            BookDetailAuthorsTextBlock.Text = String.Join(", ", selectedBook.authors);
-            BookDetailNumberOfPagesTextBlock.Text = selectedBook.numberOfPages.ToString();
-            BookDetailPublisherTextBlock.Text = selectedBook.publisher;
-            BookDetailCountryTextBlock.Text = selectedBook.country;
-            BookDetailMediaTypeTextBlock.Text = selectedBook.mediaType;
-            BookDetailReleasedTextBlock.Text = selectedBook.released;
-            BookDetailCharactersTextBlock.Text = String.Join(", ", selectedBook.characters);
-            BookDetailPovCharactersTextBlock.Text = String.Join(", ", selectedBook.povCharacters);
-        }
-
-        private void ClearBookDetailsPanel()
-        {
-            BookDetailNameTextBlock.Text = "";
-            BookDetailISBNTextBlock.Text = "";
-            BookDetailNumberOfPagesTextBlock.Text = "";
-            BookDetailPublisherTextBlock.Text = "";
-            BookDetailCountryTextBlock.Text = "";
-            BookDetailMediaTypeTextBlock.Text = "";
-            BookDetailReleasedTextBlock.Text = "";
-            BookDetailAuthorsTextBlock.Text = "";
-            BookDetailCharactersTextBlock.Text = "";
-            BookDetailPovCharactersTextBlock.Text = "";
-        }
-
-        private void House_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var selectedHouse = (House)e.ClickedItem;
-           
-            HouseDetailNameTextBlock.Text = selectedHouse.name;
-            HouseDetailRegionTextBlock.Text = selectedHouse.region;
-            HouseDetailCoatOfArmsTextBlock.Text = selectedHouse.coatOfArms;
-            HouseDetailWordsTextBlock.Text = selectedHouse.words;
-            HouseDetailTitlesTextBlock.Text = String.Join(", ", selectedHouse.titles);
-            HouseDetailSeatsTextBlock.Text = String.Join(", ", selectedHouse.seats);
-            HouseDetailCurrentLordTextBlock.Text = selectedHouse.currentLord;
-            HouseDetailHeirTextBlock.Text = selectedHouse.heir;
-            HouseDetailOverlordTextBlock.Text = selectedHouse.overlord;
-            HouseDetailFoundedTextBlock.Text = selectedHouse.founded;
-            HouseDetailFounderTextBlock.Text = selectedHouse.founder;
-            HouseDetailDiedOutTextBlock.Text = selectedHouse.diedOut;
-            HouseDetailWeaponsTextBlock.Text = String.Join(", ", selectedHouse.ancestralWeapons);
-            HouseDetailCadetBranchesTextBlock.Text = String.Join(", ", selectedHouse.cadetBranches);
-            HouseDetailSwornMembersTextBlock.Text = String.Join(", ", selectedHouse.swornMembers);
-        }
-
-        private void ClearHousesDetailsPanel()
-        {
-            HouseDetailNameTextBlock.Text = "";
-            HouseDetailRegionTextBlock.Text = "";
-            HouseDetailCoatOfArmsTextBlock.Text = "";
-            HouseDetailWordsTextBlock.Text = "";
-            HouseDetailCurrentLordTextBlock.Text = "";
-            HouseDetailHeirTextBlock.Text = "";
-            HouseDetailOverlordTextBlock.Text = "";
-            HouseDetailFoundedTextBlock.Text = "";
-            HouseDetailFounderTextBlock.Text = "";
-            HouseDetailDiedOutTextBlock.Text = "";
-            HouseDetailTitlesTextBlock.Text = "";
-            HouseDetailSeatsTextBlock.Text = "";
-            HouseDetailWeaponsTextBlock.Text = "";
-            HouseDetailCadetBranchesTextBlock.Text = "";
-            HouseDetailSwornMembersTextBlock.Text = "";
-        }
-
-        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            CharacterClicked((Character)e.OriginalSource);
-        }
-
-        private async void CharacterClicked(Character selectedCharacter)
-        {
             MyProgressRing.IsActive = true;
             MyProgressRing.Visibility = Visibility.Visible;
-
-            ClearBookDetailsPanel();
-            ClearHousesDetailsPanel();
 
             DetailNameTextBlock.Text = selectedCharacter.displayName;
             DetailGenderTextBlock.Text = selectedCharacter.gender;
@@ -305,12 +231,105 @@ namespace GameOfThronesApp
             GOTBooks.Clear();
             GOTPovBooks.Clear();
             GOTHouses.Clear();
+            
             await GOTFacade.GetDataListAsync(selectedCharacter.books, GOTBooks);
             await GOTFacade.GetDataListAsync(selectedCharacter.povBooks, GOTPovBooks);
             await GOTFacade.GetDataListAsync(selectedCharacter.allegiances, GOTHouses);
 
             MyProgressRing.IsActive = false;
             MyProgressRing.Visibility = Visibility.Collapsed;
+
+        }
+
+        private async void Book_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            MyProgressRing.IsActive = true;
+            MyProgressRing.Visibility = Visibility.Visible;
+
+            var selectedBook = (Book)e.ClickedItem;
+
+            ClearBookDetailsPanel();
+            BookDetailNameTextBlock.Text = selectedBook.name;
+            BookDetailISBNTextBlock.Text = selectedBook.isbn;
+            BookDetailAuthorsTextBlock.Text = String.Join(", ", selectedBook.authors);
+            BookDetailNumberOfPagesTextBlock.Text = selectedBook.numberOfPages.ToString();
+            BookDetailPublisherTextBlock.Text = selectedBook.publisher;
+            BookDetailCountryTextBlock.Text = selectedBook.country;
+            BookDetailMediaTypeTextBlock.Text = selectedBook.mediaType;
+            BookDetailReleasedTextBlock.Text = selectedBook.released;
+
+            GOTBookCharacters.Clear();
+            GOTBookPOVCharacters.Clear();
+            await GOTFacade.GetDataListAsync(selectedBook.characters, GOTBookCharacters);
+            await GOTFacade.GetDataListAsync(selectedBook.povCharacters, GOTBookPOVCharacters);
+
+            MyProgressRing.IsActive = false;
+            MyProgressRing.Visibility = Visibility.Collapsed;
+        }
+
+        private void ClearBookDetailsPanel()
+        {
+            BookDetailNameTextBlock.Text = "";
+            BookDetailISBNTextBlock.Text = "";
+            BookDetailNumberOfPagesTextBlock.Text = "";
+            BookDetailPublisherTextBlock.Text = "";
+            BookDetailCountryTextBlock.Text = "";
+            BookDetailMediaTypeTextBlock.Text = "";
+            BookDetailReleasedTextBlock.Text = "";
+            BookDetailAuthorsTextBlock.Text = "";
+            GOTBookCharacters.Clear();
+            GOTBookPOVCharacters.Clear();
+        }
+
+        private async void House_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedHouse = (House)e.ClickedItem;
+
+            /*Character spouse = await GOTFacade.GetSingleDataAsync<Character>(selectedCharacter.spouse);
+            DetailSpouseTextBlock.Text = spouse == null ? "" : spouse.name;*/
+
+            ClearHousesDetailsPanel();
+            HouseDetailNameTextBlock.Text = selectedHouse.name;
+            HouseDetailRegionTextBlock.Text = selectedHouse.region;
+            HouseDetailCoatOfArmsTextBlock.Text = selectedHouse.coatOfArms;
+            HouseDetailWordsTextBlock.Text = selectedHouse.words;
+            HouseDetailTitlesTextBlock.Text = String.Join(", ", selectedHouse.titles);
+            HouseDetailSeatsTextBlock.Text = String.Join(", ", selectedHouse.seats);
+            Character currentLord = await GOTFacade.GetSingleDataAsync<Character>(selectedHouse.currentLord);
+            HouseDetailCurrentLordTextBlock.Text = currentLord == null ? "" : currentLord.name;
+            Character heir = await GOTFacade.GetSingleDataAsync<Character>(selectedHouse.heir);
+            HouseDetailHeirTextBlock.Text = heir == null ? "" : heir.name;
+            Character overlord = await GOTFacade.GetSingleDataAsync<Character>(selectedHouse.overlord);
+            HouseDetailOverlordTextBlock.Text = overlord == null ? "" : overlord.name;
+            HouseDetailFoundedTextBlock.Text = selectedHouse.founded;
+            Character founder = await GOTFacade.GetSingleDataAsync<Character>(selectedHouse.founder);
+            HouseDetailFounderTextBlock.Text = founder == null? "" : founder.name;
+            HouseDetailDiedOutTextBlock.Text = selectedHouse.diedOut;
+            HouseDetailWeaponsTextBlock.Text = String.Join(", ", selectedHouse.ancestralWeapons);
+
+            GOTHouseSwornMembers.Clear();
+            GOTHouseCadetBranches.Clear();
+            await GOTFacade.GetDataListAsync(selectedHouse.swornMembers, GOTHouseSwornMembers);
+            await GOTFacade.GetDataListAsync(selectedHouse.cadetBranches, GOTHouseCadetBranches);
+        }
+
+        private void ClearHousesDetailsPanel()
+        {
+            HouseDetailNameTextBlock.Text = "";
+            HouseDetailRegionTextBlock.Text = "";
+            HouseDetailCoatOfArmsTextBlock.Text = "";
+            HouseDetailWordsTextBlock.Text = "";
+            HouseDetailCurrentLordTextBlock.Text = "";
+            HouseDetailHeirTextBlock.Text = "";
+            HouseDetailOverlordTextBlock.Text = "";
+            HouseDetailFoundedTextBlock.Text = "";
+            HouseDetailFounderTextBlock.Text = "";
+            HouseDetailDiedOutTextBlock.Text = "";
+            HouseDetailTitlesTextBlock.Text = "";
+            HouseDetailSeatsTextBlock.Text = "";
+            HouseDetailWeaponsTextBlock.Text = "";
+            GOTHouseSwornMembers.Clear();
+            GOTHouseCadetBranches.Clear();
         }
     }
 }

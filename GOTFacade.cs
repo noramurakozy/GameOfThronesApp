@@ -15,7 +15,7 @@ namespace GameOfThronesApp
     class GOTFacade
     {
         private static int MaxCharacters = 2138;
-        public async static Task<List<Character>> GetCharacterListAsync(int numOfElements)
+        public async static Task<List<Character>> GetRandomCharacterListAsync(int numOfElements)
         {
             List<Character> characterList = new List<Character>();
             Random random = new Random();
@@ -111,7 +111,7 @@ namespace GameOfThronesApp
 
         public async static Task AddCharactersToAppAsync(ObservableCollection<Character> characters)
         {
-            var characterList = await GetCharacterListAsync(10);
+            var characterList = await GetRandomCharacterListAsync(10);
 
             //put the characters in the final list
             foreach (var c in characterList)

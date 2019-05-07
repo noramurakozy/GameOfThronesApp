@@ -56,6 +56,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <Border Background="Violet">
@@ -95,9 +96,9 @@
                             <TextBlock Name="DetailCultureTextBlock"/>
                             <TextBlock Name="DetailBornTextBlock"/>
                             <TextBlock Name="DetailDiedTextBlock"/>
-                            <TextBlock Name="DetailFatherTextBlock" IsTapEnabled="True" Tapped="TextBlock_Tapped"/>
-                            <TextBlock Name="DetailMotherTextBlock" IsTapEnabled="True" Tapped="TextBlock_Tapped"/>
-                            <TextBlock Name="DetailSpouseTextBlock" IsTapEnabled="True" Tapped="TextBlock_Tapped"/>
+                            <TextBlock Name="DetailFatherTextBlock"/>
+                            <TextBlock Name="DetailMotherTextBlock"/>
+                            <TextBlock Name="DetailSpouseTextBlock"/>
                             <TextBlock Name="DetailTitlesTextBlock"/>
                             <TextBlock Name="DetailAliasesTextBlock"/>
                             <ListView
@@ -182,10 +183,27 @@
                             <TextBlock Name="BookDetailCountryTextBlock"/>
                             <TextBlock Name="BookDetailMediaTypeTextBlock"/>
                             <TextBlock Name="BookDetailReleasedTextBlock"/>
-                            <TextBlock Name="BookDetailCharactersTextBlock"/>
-                            <TextBlock Name="BookDetailPovCharactersTextBlock"/>
+                            <ListView
+                            ItemsSource="{x:Bind GOTBookCharacters}" 
+                            IsItemClickEnabled="True" 
+                            ItemClick="Character_ItemClick">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="data:Character">
+                                        <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <ListView
+                            ItemsSource="{x:Bind GOTBookPOVCharacters}" 
+                            IsItemClickEnabled="True" 
+                            ItemClick="Character_ItemClick">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="data:Character">
+                                        <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </Grid>
-
                     </Grid>
                     
                     <!--Second column grid-->
@@ -240,8 +258,26 @@
                             <TextBlock Name="HouseDetailFounderTextBlock"/>
                             <TextBlock Name="HouseDetailDiedOutTextBlock"/>
                             <TextBlock Name="HouseDetailWeaponsTextBlock"/>
-                            <TextBlock Name="HouseDetailCadetBranchesTextBlock"/>
-                            <TextBlock Name="HouseDetailSwornMembersTextBlock"/>
+                            <ListView
+                            ItemsSource="{x:Bind GOTHouseCadetBranches}" 
+                            IsItemClickEnabled="True" 
+                            ItemClick="House_ItemClick">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="data:House">
+                                        <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <ListView
+                            ItemsSource="{x:Bind GOTHouseSwornMembers}" 
+                            IsItemClickEnabled="True" 
+                            ItemClick="Character_ItemClick">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="data:Character">
+                                        <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </Grid>
                     </Grid>
 
