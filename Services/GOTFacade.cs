@@ -15,6 +15,39 @@ namespace GameOfThronesApp
     class GOTFacade
     {
         private static int MaxCharacters = 2138;
+
+        public async static Task<ObservableCollection<Character>> GetAllCharacterListAsync()
+        {
+            ObservableCollection<Character> characterList = new ObservableCollection<Character>();
+
+            var http = new HttpClient();
+            List<Task<HttpResponseMessage>> requestList = new List<Task<HttpResponseMessage>>();
+
+            var url = "https://anapioficeandfire.com/api/characters";
+            requestList.Add(http.GetAsync(url));
+
+            try
+            {
+                var results = await Task.WhenAll(requestList.ToArray());
+
+                foreach (var response in results)
+                {
+                    var jsonMessage = await response.Content.ReadAsStringAsync();
+
+                    var serializer = new DataContractJsonSerializer(typeof(Character));
+                    var ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonMessage));
+
+                    characterList.Add((Character)serializer.ReadObject(ms));
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+
+            return characterList;
+        }
         public async static Task<List<Character>> GetRandomCharacterListAsync(int numOfElements)
         {
             List<Character> characterList = new List<Character>();

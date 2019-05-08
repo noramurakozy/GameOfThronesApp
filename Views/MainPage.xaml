@@ -7,7 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:GameOfThronesApp.Models"
     Loaded="Page_Loaded"
+    xmlns:vm="using:GameOfThronesApp.ViewModels"
     mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:MainPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
 
     <Grid>
         <ScrollViewer>
@@ -25,7 +30,7 @@
                 <ListView Name="MasterListView" 
                   IsItemClickEnabled="True"
                   ItemClick="Character_ItemClick"
-                  ItemsSource="{x:Bind GOTCharacters}">
+                  ItemsSource="{Binding GOTCharacters}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="data:Character">
                             <StackPanel Orientation="Horizontal">
@@ -67,7 +72,8 @@
                         <Grid Name="CharacterDetailGrid" 
                           Grid.Row="1" 
                           HorizontalAlignment="Left" 
-                          VerticalAlignment="Top">
+                          VerticalAlignment="Top"
+                              >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -102,7 +108,7 @@
                             <TextBlock Name="DetailTitlesTextBlock"/>
                             <TextBlock Name="DetailAliasesTextBlock"/>
                             <ListView
-                            ItemsSource="{x:Bind GOTHouses}" 
+                            ItemsSource="{Binding GOTHouses}" 
                             IsItemClickEnabled="True" 
                             ItemClick="House_ItemClick">
                                 <ListView.ItemTemplate>
@@ -122,7 +128,7 @@
                         <!-- List of Books -->
                         <GridView 
                           Grid.Row="3" 
-                          ItemsSource="{x:Bind GOTBooks}" 
+                          ItemsSource="{Binding GOTBooks}" 
                           IsItemClickEnabled="True" 
                           ItemClick="Book_ItemClick">
                             <GridView.ItemTemplate>
@@ -141,7 +147,7 @@
                         <!-- List of POV Books -->
                         <GridView 
                           Grid.Row="5" 
-                          ItemsSource="{x:Bind GOTPovBooks}" 
+                          ItemsSource="{Binding GOTPovBooks}" 
                           IsItemClickEnabled="True" 
                           ItemClick="Book_ItemClick">
                             <GridView.ItemTemplate>
@@ -184,7 +190,7 @@
                             <TextBlock Name="BookDetailMediaTypeTextBlock"/>
                             <TextBlock Name="BookDetailReleasedTextBlock"/>
                             <ListView
-                            ItemsSource="{x:Bind GOTBookCharacters}" 
+                            ItemsSource="{Binding GOTBookCharacters}" 
                             IsItemClickEnabled="True" 
                             ItemClick="Character_ItemClick">
                                 <ListView.ItemTemplate>
@@ -194,7 +200,7 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                             <ListView
-                            ItemsSource="{x:Bind GOTBookPOVCharacters}" 
+                            ItemsSource="{Binding GOTBookPOVCharacters}" 
                             IsItemClickEnabled="True" 
                             ItemClick="Character_ItemClick">
                                 <ListView.ItemTemplate>
@@ -259,7 +265,7 @@
                             <TextBlock Name="HouseDetailDiedOutTextBlock"/>
                             <TextBlock Name="HouseDetailWeaponsTextBlock"/>
                             <ListView
-                            ItemsSource="{x:Bind GOTHouseCadetBranches}" 
+                            ItemsSource="{Binding GOTHouseCadetBranches}" 
                             IsItemClickEnabled="True" 
                             ItemClick="House_ItemClick">
                                 <ListView.ItemTemplate>
@@ -269,7 +275,7 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                             <ListView
-                            ItemsSource="{x:Bind GOTHouseSwornMembers}" 
+                            ItemsSource="{Binding GOTHouseSwornMembers}" 
                             IsItemClickEnabled="True" 
                             ItemClick="Character_ItemClick">
                                 <ListView.ItemTemplate>

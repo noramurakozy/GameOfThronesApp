@@ -1,4 +1,5 @@
 ﻿using GameOfThronesApp.Models;
+using GameOfThronesApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,88 +27,22 @@ namespace GameOfThronesApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public ObservableCollection<House> GOTHouses { get; set; }
-        private ObservableCollection<Character> GOTCharacters { get; set; }
-        public ObservableCollection<Book> GOTBooks { get; set; }
-        public ObservableCollection<Book> GOTPovBooks { get; set; }
-        public ObservableCollection<Character> GOTBookCharacters { get; set; }
-        public ObservableCollection<Character> GOTBookPOVCharacters { get; set; }
-        public ObservableCollection<Character> GOTHouseSwornMembers { get; set; }
-        public ObservableCollection<House> GOTHouseCadetBranches { get; set; }
-
-        private List<string> CharacterLabels { get; set; }
-        private List<string> BookLabels { get; set; }
-        private List<string> HouseLabels { get; set; }
+        
         public MainPage()
         {
             this.InitializeComponent();
-
-            GOTCharacters = new ObservableCollection<Character>();
-            GOTBooks = new ObservableCollection<Book>();
-            GOTPovBooks = new ObservableCollection<Book>();
-            GOTHouses = new ObservableCollection<House>();
-            GOTBookCharacters = new ObservableCollection<Character>();
-            GOTBookPOVCharacters = new ObservableCollection<Character>();
-            GOTHouseSwornMembers = new ObservableCollection<Character>();
-            GOTHouseCadetBranches = new ObservableCollection<House>();
-
-            CharacterLabels = new List<string>()
-            {
-                "",
-                "Gender",
-                "Culture",
-                "Born",
-                "Died",
-                "Father",
-                "Mother",
-                "Spouse",
-                "Titles",
-                "Aliases",
-                "Allegiances",
-                "Tv series",
-                "Played by"
-            };
-            BookLabels = new List<string>()
-            {
-               "",
-               "ISBN",
-               "Authors",
-               "Number of pages",
-               "Publisher",
-               "Country",
-               "MediaType",
-               "Released",
-               "Characters",
-               "POV Characters"
-            };
-            HouseLabels = new List<string>()
-            {
-               "",
-               "Region",
-               "Coat of arms",
-               "Words",
-               "Titles",
-               "Seats",
-               "Current lord",
-               "Heir",
-               "Overlord",
-               "Founded",
-               "Founder",
-               "Died out",
-               "Ancestral weapons",
-               "Cadet branches",
-               "SwornMembers"
-            };
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MyProgressRing.IsActive = true;
             MyProgressRing.Visibility = Visibility.Visible;
 
-            while (GOTCharacters.Count < 10)
+            ViewModel.InitCharacters();
+
+            foreach (var item in ViewModel.GOTCharacters)
             {
-                await GOTFacade.AddCharactersToAppAsync(GOTCharacters);
+                Debug.WriteLine(item.name);
             }
 
             InitBookDetailGrid();
@@ -140,7 +75,7 @@ namespace GameOfThronesApp
                 }
 
                 TextBlock label = new TextBlock();
-                label.Text = HouseLabels[i];
+                label.Text = MainPageViewModel.HouseLabels[i];
                 label.SetValue(Grid.ColumnProperty, 0);
                 label.SetValue(Grid.RowProperty, i);
                 HouseDetailGrid.Children.Add(label);
@@ -169,7 +104,7 @@ namespace GameOfThronesApp
                 }
 
                 TextBlock label = new TextBlock();
-                label.Text = BookLabels[i];
+                label.Text = MainPageViewModel.BookLabels[i];
                 label.SetValue(Grid.ColumnProperty, 0);
                 label.SetValue(Grid.RowProperty, i);
                 BookDetailGrid.Children.Add(label);
@@ -198,12 +133,14 @@ namespace GameOfThronesApp
                 }
 
                 TextBlock label = new TextBlock();
-                label.Text = CharacterLabels[i];
+                label.Text = MainPageViewModel.CharacterLabels[i];
                 label.SetValue(Grid.ColumnProperty, 0);
                 label.SetValue(Grid.RowProperty, i);
                 CharacterDetailGrid.Children.Add(label);
             }
         }
+
+
 
         private async void Character_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -217,31 +154,22 @@ namespace GameOfThronesApp
             DetailCultureTextBlock.Text = selectedCharacter.culture;
             DetailBornTextBlock.Text = selectedCharacter.born;
             DetailDiedTextBlock.Text = selectedCharacter.died;
-            Character father = await GOTFacade.GetSingleDataAsync<Character>(selectedCharacter.father);
-            DetailFatherTextBlock.Text = father == null ? "" : father.name;
-            Character mother = await GOTFacade.GetSingleDataAsync<Character>(selectedCharacter.mother);
-            DetailMotherTextBlock.Text = mother == null ? "" : mother.name;
-            Character spouse = await GOTFacade.GetSingleDataAsync<Character>(selectedCharacter.spouse);
-            DetailSpouseTextBlock.Text = spouse == null ? "" : spouse.name;
+            DetailFatherTextBlock.Text = await ViewModel.UpdateSigleCharacterDetail(selectedCharacter.father);
+            DetailMotherTextBlock.Text = await ViewModel.UpdateSigleCharacterDetail(selectedCharacter.mother);
+            DetailSpouseTextBlock.Text = await ViewModel.UpdateSigleCharacterDetail(selectedCharacter.spouse);
             DetailTitlesTextBlock.Text = String.Join(", ", selectedCharacter.titles);
             DetailAliasesTextBlock.Text = String.Join(", ", selectedCharacter.aliases);
             DetailTvSeriesTextBlock.Text = String.Join(", ", selectedCharacter.tvSeries);
             DetailPlayedByTextBlock.Text = String.Join(", ", selectedCharacter.playedBy);
 
-            GOTBooks.Clear();
-            GOTPovBooks.Clear();
-            GOTHouses.Clear();
-            
-            await GOTFacade.GetDataListAsync(selectedCharacter.books, GOTBooks);
-            await GOTFacade.GetDataListAsync(selectedCharacter.povBooks, GOTPovBooks);
-            await GOTFacade.GetDataListAsync(selectedCharacter.allegiances, GOTHouses);
+            ViewModel.UpdateCharacterDetails(selectedCharacter);
 
             MyProgressRing.IsActive = false;
             MyProgressRing.Visibility = Visibility.Collapsed;
 
         }
 
-        private async void Book_ItemClick(object sender, ItemClickEventArgs e)
+        private void Book_ItemClick(object sender, ItemClickEventArgs e)
         {
             MyProgressRing.IsActive = true;
             MyProgressRing.Visibility = Visibility.Visible;
@@ -258,10 +186,7 @@ namespace GameOfThronesApp
             BookDetailMediaTypeTextBlock.Text = selectedBook.mediaType;
             BookDetailReleasedTextBlock.Text = selectedBook.released;
 
-            GOTBookCharacters.Clear();
-            GOTBookPOVCharacters.Clear();
-            await GOTFacade.GetDataListAsync(selectedBook.characters, GOTBookCharacters);
-            await GOTFacade.GetDataListAsync(selectedBook.povCharacters, GOTBookPOVCharacters);
+            ViewModel.UpdateBookDetails(selectedBook);
 
             MyProgressRing.IsActive = false;
             MyProgressRing.Visibility = Visibility.Collapsed;
@@ -277,16 +202,12 @@ namespace GameOfThronesApp
             BookDetailMediaTypeTextBlock.Text = "";
             BookDetailReleasedTextBlock.Text = "";
             BookDetailAuthorsTextBlock.Text = "";
-            GOTBookCharacters.Clear();
-            GOTBookPOVCharacters.Clear();
+            ViewModel.ClearBookData();
         }
 
         private async void House_ItemClick(object sender, ItemClickEventArgs e)
         {
             var selectedHouse = (House)e.ClickedItem;
-
-            /*Character spouse = await GOTFacade.GetSingleDataAsync<Character>(selectedCharacter.spouse);
-            DetailSpouseTextBlock.Text = spouse == null ? "" : spouse.name;*/
 
             ClearHousesDetailsPanel();
             HouseDetailNameTextBlock.Text = selectedHouse.name;
@@ -295,22 +216,15 @@ namespace GameOfThronesApp
             HouseDetailWordsTextBlock.Text = selectedHouse.words;
             HouseDetailTitlesTextBlock.Text = String.Join(", ", selectedHouse.titles);
             HouseDetailSeatsTextBlock.Text = String.Join(", ", selectedHouse.seats);
-            Character currentLord = await GOTFacade.GetSingleDataAsync<Character>(selectedHouse.currentLord);
-            HouseDetailCurrentLordTextBlock.Text = currentLord == null ? "" : currentLord.name;
-            Character heir = await GOTFacade.GetSingleDataAsync<Character>(selectedHouse.heir);
-            HouseDetailHeirTextBlock.Text = heir == null ? "" : heir.name;
-            Character overlord = await GOTFacade.GetSingleDataAsync<Character>(selectedHouse.overlord);
-            HouseDetailOverlordTextBlock.Text = overlord == null ? "" : overlord.name;
+            HouseDetailCurrentLordTextBlock.Text = await ViewModel.UpdateSigleCharacterDetail(selectedHouse.currentLord);
+            HouseDetailHeirTextBlock.Text = await ViewModel.UpdateSigleCharacterDetail(selectedHouse.heir);
+            HouseDetailOverlordTextBlock.Text = await ViewModel.UpdateSigleCharacterDetail(selectedHouse.overlord);
             HouseDetailFoundedTextBlock.Text = selectedHouse.founded;
-            Character founder = await GOTFacade.GetSingleDataAsync<Character>(selectedHouse.founder);
-            HouseDetailFounderTextBlock.Text = founder == null? "" : founder.name;
+            HouseDetailFounderTextBlock.Text = await ViewModel.UpdateSigleCharacterDetail(selectedHouse.founder);
             HouseDetailDiedOutTextBlock.Text = selectedHouse.diedOut;
             HouseDetailWeaponsTextBlock.Text = String.Join(", ", selectedHouse.ancestralWeapons);
 
-            GOTHouseSwornMembers.Clear();
-            GOTHouseCadetBranches.Clear();
-            await GOTFacade.GetDataListAsync(selectedHouse.swornMembers, GOTHouseSwornMembers);
-            await GOTFacade.GetDataListAsync(selectedHouse.cadetBranches, GOTHouseCadetBranches);
+            ViewModel.UpdateHouseDetails(selectedHouse);
         }
 
         private void ClearHousesDetailsPanel()
@@ -328,8 +242,7 @@ namespace GameOfThronesApp
             HouseDetailTitlesTextBlock.Text = "";
             HouseDetailSeatsTextBlock.Text = "";
             HouseDetailWeaponsTextBlock.Text = "";
-            GOTHouseSwornMembers.Clear();
-            GOTHouseCadetBranches.Clear();
+            ViewModel.ClearHouseData();
         }
     }
 }

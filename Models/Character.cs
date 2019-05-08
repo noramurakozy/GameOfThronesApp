@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace GameOfThronesApp.Models
 {
@@ -76,4 +78,14 @@ namespace GameOfThronesApp.Models
         [DataMember]
         public List<string> playedBy { get; set; }
     }
+
+    /*public class GOTBookCharactersSource : IIncrementalSource<Character>
+    {
+        private List<Character> bookCharacters = new List<Character>();
+        public Task<IEnumerable<Character>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            bookCharacters.Clear();
+
+        }
+    }*/
 }
