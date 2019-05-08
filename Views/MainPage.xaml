@@ -15,33 +15,37 @@
     </Page.DataContext>
 
     <Grid>
-        <ScrollViewer>
+       
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="0"/>
+                    
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <ListView Name="MasterListView" 
+                <ScrollViewer>
+                  <ListView Name="MasterListView" 
                   IsItemClickEnabled="True"
                   ItemClick="Character_ItemClick"
-                  ItemsSource="{Binding GOTCharacters}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="data:Character">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{x:Bind displayName}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                  ItemsSource="{Binding GOTCharacters}"
+                            >
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="data:Character">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{x:Bind displayName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
 
+            <ScrollViewer Grid.Column="1" >
                 <!--Detail Grid-->
-                <Grid Name="DetailGrid" Grid.Column="1" Grid.Row="0" Margin="10,0,10,0">
+                <Grid Name="DetailGrid" Grid.Row="0" Margin="10,0,10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -211,7 +215,7 @@
                             </ListView>
                         </Grid>
                     </Grid>
-                    
+
                     <!--Second column grid-->
                     <Grid Name="SecondColumnGrid"
                           Grid.Column="1">
@@ -296,7 +300,7 @@
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"/>
                 </Grid>
-            </Grid>
-        </ScrollViewer>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

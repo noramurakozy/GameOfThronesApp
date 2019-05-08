@@ -73,7 +73,7 @@ namespace GameOfThronesApp.ViewModels
         public async void InitCharacters()
         {
             
-            await GOTFacade.AddCharactersToAppAsync(GOTCharacters);
+            await GOTFacade.AddCharactersToAppAsync(GOTCharacters,25);
             
             //GOTCharacters = await GOTFacade.GetAllCharacterListAsync();
         }

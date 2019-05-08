@@ -40,11 +40,6 @@ namespace GameOfThronesApp
 
             ViewModel.InitCharacters();
 
-            foreach (var item in ViewModel.GOTCharacters)
-            {
-                Debug.WriteLine(item.name);
-            }
-
             InitBookDetailGrid();
             InitCharacterDetailGrid();
             InitHouseDetailGrid();

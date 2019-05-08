@@ -142,16 +142,18 @@ namespace GameOfThronesApp
             
         }
 
-        public async static Task AddCharactersToAppAsync(ObservableCollection<Character> characters)
+        public async static Task AddCharactersToAppAsync(ObservableCollection<Character> characters, int numOfCharacters)
         {
-            var characterList = await GetRandomCharacterListAsync(10);
+            var characterList = await GetRandomCharacterListAsync(numOfCharacters);
 
             //put the characters in the final list
             foreach (var c in characterList)
             {
                 characters.Add(c);
             }
-            
+
+            //remove duplication
+            characters = new ObservableCollection<Character>(characters.Distinct());
         }
     }
 }
