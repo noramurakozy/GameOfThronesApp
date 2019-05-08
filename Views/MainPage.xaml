@@ -28,19 +28,21 @@
                 </Grid.ColumnDefinitions>
 
                 <ScrollViewer>
-                  <ListView Name="MasterListView" 
-                  IsItemClickEnabled="True"
-                  ItemClick="Character_ItemClick"
-                  ItemsSource="{Binding GOTCharacters}"
-                            >
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="data:Character">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{x:Bind displayName}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                <ListView Name="MasterListView" 
+                              IsItemClickEnabled="True"
+                              ItemClick="Character_ItemClick"
+                              ItemsSource="{Binding GOTCharacters}"
+                              IncrementalLoadingThreshold="5"
+                              IncrementalLoadingTrigger="Edge"
+                              DataFetchSize="1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:Character">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind displayName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 </ScrollViewer>
 
             <ScrollViewer Grid.Column="1" >
@@ -193,26 +195,32 @@
                             <TextBlock Name="BookDetailCountryTextBlock"/>
                             <TextBlock Name="BookDetailMediaTypeTextBlock"/>
                             <TextBlock Name="BookDetailReleasedTextBlock"/>
-                            <ListView
+                            <ScrollViewer>
+                                <ListView
                             ItemsSource="{Binding GOTBookCharacters}" 
                             IsItemClickEnabled="True" 
-                            ItemClick="Character_ItemClick">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:Character">
-                                        <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                            <ListView
+                            ItemClick="Character_ItemClick"
+                                    MaxHeight="300">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="data:Character">
+                                            <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+                            <ScrollViewer>
+                                <ListView
                             ItemsSource="{Binding GOTBookPOVCharacters}" 
                             IsItemClickEnabled="True" 
-                            ItemClick="Character_ItemClick">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:Character">
-                                        <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                            ItemClick="Character_ItemClick"
+                                    MaxHeight="300">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="data:Character">
+                                            <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
                         </Grid>
                     </Grid>
 
@@ -268,26 +276,32 @@
                             <TextBlock Name="HouseDetailFounderTextBlock"/>
                             <TextBlock Name="HouseDetailDiedOutTextBlock"/>
                             <TextBlock Name="HouseDetailWeaponsTextBlock"/>
-                            <ListView
+                            <ScrollViewer>
+                                <ListView
                             ItemsSource="{Binding GOTHouseCadetBranches}" 
                             IsItemClickEnabled="True" 
-                            ItemClick="House_ItemClick">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:House">
-                                        <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                            <ListView
+                            ItemClick="House_ItemClick"
+                                    MaxHeight="300">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="data:House">
+                                            <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+                            <ScrollViewer>
+                                <ListView
                             ItemsSource="{Binding GOTHouseSwornMembers}" 
                             IsItemClickEnabled="True" 
-                            ItemClick="Character_ItemClick">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:Character">
-                                        <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                            ItemClick="Character_ItemClick"
+                                    MaxHeight="300">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="data:Character">
+                                            <TextBlock Text="{x:Bind displayName}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
                         </Grid>
                     </Grid>
 
