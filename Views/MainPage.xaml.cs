@@ -10,6 +10,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -30,7 +31,7 @@ namespace GameOfThronesApp
         
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -56,7 +57,7 @@ namespace GameOfThronesApp
                 childItem.SetValue(Grid.RowProperty, rowindex++);
                 childItem.SetValue(Grid.ColumnProperty, 1);
                 childItem.SetValue(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
-                childItem.SetValue(MarginProperty, new Thickness(10, 0, 0, 0));
+                childItem.SetValue(MarginProperty, new Thickness(10, 10, 10, 10));
             }
 
             //add labels
@@ -73,6 +74,7 @@ namespace GameOfThronesApp
                 label.Text = MainPageViewModel.HouseLabels[i];
                 label.SetValue(Grid.ColumnProperty, 0);
                 label.SetValue(Grid.RowProperty, i);
+                label.SetValue(MarginProperty, new Thickness(10, 10, 10, 10));
                 HouseDetailGrid.Children.Add(label);
             }
         }
@@ -85,7 +87,7 @@ namespace GameOfThronesApp
                 childItem.SetValue(Grid.RowProperty, rowindex++);
                 childItem.SetValue(Grid.ColumnProperty, 1);
                 childItem.SetValue(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
-                childItem.SetValue(MarginProperty, new Thickness(10, 0, 0, 0));
+                childItem.SetValue(MarginProperty, new Thickness(10, 10, 10, 10));
             }
 
             //add labels
@@ -102,6 +104,7 @@ namespace GameOfThronesApp
                 label.Text = MainPageViewModel.BookLabels[i];
                 label.SetValue(Grid.ColumnProperty, 0);
                 label.SetValue(Grid.RowProperty, i);
+                label.SetValue(MarginProperty, new Thickness(10, 10, 10, 10));
                 BookDetailGrid.Children.Add(label);
             }
         }
@@ -114,7 +117,7 @@ namespace GameOfThronesApp
                 childItem.SetValue(Grid.RowProperty, rowindex++);
                 childItem.SetValue(Grid.ColumnProperty, 1);
                 childItem.SetValue(TextBlock.TextWrappingProperty, TextWrapping.Wrap);
-                childItem.SetValue(MarginProperty, new Thickness(10, 0, 0, 0));
+                childItem.SetValue(MarginProperty, new Thickness(10, 10, 10, 10));
             }
 
             //add labels
@@ -131,6 +134,7 @@ namespace GameOfThronesApp
                 label.Text = MainPageViewModel.CharacterLabels[i];
                 label.SetValue(Grid.ColumnProperty, 0);
                 label.SetValue(Grid.RowProperty, i);
+                label.SetValue(MarginProperty, new Thickness(10, 10, 10, 10));
                 CharacterDetailGrid.Children.Add(label);
             }
         }

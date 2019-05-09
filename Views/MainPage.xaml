@@ -15,19 +15,19 @@
     </Page.DataContext>
 
     <Grid>
-       
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="0"/>
-                    
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="ms-appx:///Assets/mauricio-santos-503880-unsplash.jpg" Opacity="0.3" Stretch="UniformToFill"></ImageBrush>
+        </Grid.Background>
+        <Grid Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-                <ScrollViewer>
+            <ScrollViewer>
                 <ListView Name="MasterListView" 
                               IsItemClickEnabled="True"
                               ItemClick="Character_ItemClick"
@@ -43,23 +43,22 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                </ScrollViewer>
+            </ScrollViewer>
 
             <ScrollViewer Grid.Column="1" >
                 <!--Detail Grid-->
                 <Grid Name="DetailGrid" Grid.Row="0" Margin="10,0,10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="500"/>
-                        <ColumnDefinition MinWidth="500"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <!--First column grid-->
-                    <Grid Name="FirstColumnGrid"
-                          HorizontalAlignment="Left" 
-                          VerticalAlignment="Top">
+                    <Grid Name="FirstColumnGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -70,8 +69,8 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Border Background="Violet">
-                            <TextBlock Text="Character" FontSize="20" HorizontalAlignment="Center"/>
+                        <Border Background="#AA000000">
+                            <TextBlock Text="Character" FontSize="20" HorizontalAlignment="Center" Margin="12" Foreground="White"/>
                         </Border>
 
                         <!--Character Detail Grid-->
@@ -79,7 +78,7 @@
                           Grid.Row="1" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Top"
-                              >
+                              Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -127,8 +126,8 @@
                             <TextBlock Name="DetailPlayedByTextBlock"/>
                         </Grid>
 
-                        <Border Grid.Row="2" Background="Violet">
-                            <TextBlock Text="Books" FontSize="20" HorizontalAlignment="Center"/>
+                        <Border Grid.Row="2" Background="#AA000000">
+                            <TextBlock Text="Books" FontSize="20" HorizontalAlignment="Center" Margin="12" Foreground="White"/>
                         </Border>
 
                         <!-- List of Books -->
@@ -136,7 +135,8 @@
                           Grid.Row="3" 
                           ItemsSource="{Binding GOTBooks}" 
                           IsItemClickEnabled="True" 
-                          ItemClick="Book_ItemClick">
+                          ItemClick="Book_ItemClick"
+                            Margin="10">
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="data:Book">
                                     <Border Background="Azure">
@@ -146,8 +146,8 @@
                             </GridView.ItemTemplate>
                         </GridView>
 
-                        <Border Grid.Row="4" Background="Violet">
-                            <TextBlock Text="POV Books" FontSize="20" HorizontalAlignment="Center"/>
+                        <Border Grid.Row="4" Background="#AA000000">
+                            <TextBlock Text="POV Books" FontSize="20" HorizontalAlignment="Center" Margin="12" Foreground="White"/>
                         </Border>
 
                         <!-- List of POV Books -->
@@ -155,7 +155,8 @@
                           Grid.Row="5" 
                           ItemsSource="{Binding GOTPovBooks}" 
                           IsItemClickEnabled="True" 
-                          ItemClick="Book_ItemClick">
+                          ItemClick="Book_ItemClick"
+                            Margin="10">
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="data:Book">
                                     <Border Background="LightPink">
@@ -169,7 +170,8 @@
                         <Grid Name="BookDetailGrid"
                           Grid.Row="6" 
                           HorizontalAlignment="Left" 
-                          VerticalAlignment="Top">
+                          VerticalAlignment="Top"
+                              Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -231,8 +233,9 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Border Grid.Column="1" Background="Violet">
-                            <TextBlock Text="House" FontSize="20" HorizontalAlignment="Center"/>
+
+                        <Border Grid.Column="1" Background="#AA000000">
+                            <TextBlock Text="House" FontSize="20" HorizontalAlignment="Center" Margin="12" Foreground="White"/>
                         </Border>
 
                         <!--House Detail Grid-->
@@ -240,7 +243,8 @@
                           Grid.Column="1"
                           Grid.Row="1"
                           HorizontalAlignment="Left" 
-                          VerticalAlignment="Top">
+                          VerticalAlignment="Top"
+                              Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
