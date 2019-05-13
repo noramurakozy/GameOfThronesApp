@@ -49,6 +49,9 @@ namespace GameOfThronesApp
             MyProgressRing.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Initalization of the House Detail grid (necessary because of the labels)
+        /// </summary>
         private void InitHouseDetailGrid()
         {
             int rowindex = 0;

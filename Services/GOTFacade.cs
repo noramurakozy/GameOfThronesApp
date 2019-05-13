@@ -16,6 +16,10 @@ namespace GameOfThronesApp
     {
         private static int MaxCharacters = 2138;
 
+        /// <summary>
+        /// API call, get the whole character list async
+        /// </summary>
+        /// <returns>List of character objects</returns>
         public async static Task<ObservableCollection<Character>> GetAllCharacterListAsync()
         {
             ObservableCollection<Character> characterList = new ObservableCollection<Character>();
@@ -48,6 +52,11 @@ namespace GameOfThronesApp
 
             return characterList;
         }
+        /// <summary>
+        /// Get random characterlist by number of characters
+        /// </summary>
+        /// <param name="numOfElements"></param>
+        /// <returns>List of characters</returns>
         public async static Task<List<Character>> GetRandomCharacterListAsync(int numOfElements)
         {
             List<Character> characterList = new List<Character>();
@@ -85,6 +94,13 @@ namespace GameOfThronesApp
             return characterList;
         }
 
+        /// <summary>
+        /// Get templated data list by url list
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="urls"></param>
+        /// <param name="finalList"></param>
+        /// <returns>List of the objects</returns>
         public async static Task<List<T>> GetDataListAsync<T>(List<string> urls, ObservableCollection<T> finalList)
         {
             List<T> list = new List<T>();
@@ -121,7 +137,12 @@ namespace GameOfThronesApp
 
             return list;
         }
-
+        /// <summary>
+        /// Get single data async by a single url
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <returns>The object</returns>
         public async static Task<T> GetSingleDataAsync<T>(string url)
         {
             if (!url.Equals(""))
@@ -141,7 +162,13 @@ namespace GameOfThronesApp
             }
             
         }
-
+        
+        /// <summary>
+        /// Adding the given number of random characters to the application
+        /// </summary>
+        /// <param name="characters"></param>
+        /// <param name="numOfCharacters"></param>
+        /// <returns></returns>
         public async static Task AddCharactersToAppAsync(ObservableCollection<Character> characters, int numOfCharacters)
         {
             var characterList = await GetRandomCharacterListAsync(numOfCharacters);

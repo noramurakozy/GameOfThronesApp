@@ -70,6 +70,9 @@ namespace GameOfThronesApp.ViewModels
                "SwornMembers"
             };
 
+        /// <summary>
+        /// Init the first 20 characters to the app
+        /// </summary>
         public async void InitCharacters()
         {
             
@@ -78,6 +81,13 @@ namespace GameOfThronesApp.ViewModels
             //GOTCharacters = await GOTFacade.GetAllCharacterListAsync();
         }
 
+        /// <summary>
+        /// Ovverrided method from ViewModelBase
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="mode"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             var characters = await GOTFacade.GetAllCharacterListAsync();
@@ -88,6 +98,10 @@ namespace GameOfThronesApp.ViewModels
             await base.OnNavigatedToAsync(parameter, mode, state);
         }
 
+        /// <summary>
+        /// Updating the CharacterDetails grid datasources
+        /// </summary>
+        /// <param name="selectedCharacter"></param>
         public async void UpdateCharacterDetails(Character selectedCharacter)
         {
             GOTBooks.Clear();
@@ -99,12 +113,21 @@ namespace GameOfThronesApp.ViewModels
             await GOTFacade.GetDataListAsync(selectedCharacter.allegiances, GOTHouses);
         }
 
+        /// <summary>
+        /// Updating a single data of a character
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>Returns with the data string value</returns>
         public async Task<string> UpdateSigleCharacterDetail(string url)
         {
             Character data = await GOTFacade.GetSingleDataAsync<Character>(url);
             return data == null ? "" : data.name;
         }
 
+        /// <summary>
+        /// Updating the BookDetail grid datasources
+        /// </summary>
+        /// <param name="selectedBook"></param>
         public async void UpdateBookDetails(Book selectedBook)
         {
             GOTBookCharacters.Clear();
@@ -113,6 +136,10 @@ namespace GameOfThronesApp.ViewModels
             await GOTFacade.GetDataListAsync(selectedBook.povCharacters, GOTBookPOVCharacters);
         }
 
+        /// <summary>
+        /// Updting a the HouseDetail grid datasources
+        /// </summary>
+        /// <param name="selectedHouse"></param>
         public async void UpdateHouseDetails(House selectedHouse)
         {
             GOTHouseSwornMembers.Clear();
@@ -121,12 +148,18 @@ namespace GameOfThronesApp.ViewModels
             await GOTFacade.GetDataListAsync(selectedHouse.cadetBranches, GOTHouseCadetBranches);
         }
 
+        /// <summary>
+        /// Clear the housepanel's datasources
+        /// </summary>
         public void ClearHouseData()
         {
             GOTHouseSwornMembers.Clear();
             GOTHouseCadetBranches.Clear();
         }
 
+        /// <summary>
+        /// Clear the bookpanel's datasources
+        /// </summary>
         public void ClearBookData()
         {
             GOTBookCharacters.Clear();
